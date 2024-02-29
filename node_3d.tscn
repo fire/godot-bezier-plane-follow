@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://bpd41hp3uhim6"]
+
+[sub_resource type="Curve3D" id="Curve3D_kelq0"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.226142, 0.191443, -0.211061, 0, 0, 0, 0, 0, 0, 1.14203, 0.559709, -0.178354, 0, 0, 0, 0, 0, 0, 1.89034, -0.585424, -0.198767),
+"tilts": PackedFloat64Array(0, 0.593453, -0.0187226)
+}
+point_count = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hlj25"]
+cull_mode = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ob0vg"]
+material = SubResource("StandardMaterial3D_hlj25")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="Animation" id="Animation_ricem"]
+resource_name = "new_animation"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path3D/PathFollow3D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat64Array(0, 10),
+"transitions": PackedFloat64Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_qmgrp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path3D/PathFollow3D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat64Array(0),
+"transitions": PackedFloat64Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5f8i8"]
+_data = {
+"RESET": SubResource("Animation_qmgrp"),
+"new_animation": SubResource("Animation_ricem")
+}
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Path3D" type="Path3D" parent="."]
+curve = SubResource("Curve3D_kelq0")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.0356889, -0.372617, 0.927299, -2.77556e-17, 0.92789, 0.372854, -0.999363, -0.0133068, 0.0331154, 0.226142, 0.191443, -0.211061)
+use_model_front = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D"]
+transform = Transform3D(1, 0, 0, 0, 6.12303e-17, -1, 0, 1, 6.12303e-17, 0, 0, 0)
+mesh = SubResource("PlaneMesh_ob0vg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5f8i8")
+}
+autoplay = "new_animation"
