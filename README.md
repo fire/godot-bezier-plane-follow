@@ -1,3 +1,4 @@
 # Animation Plane Game Project
 
-![Animation Plane Game Video](2024-02-28 20-22-18.mp4)
+https://github.com/fire/godot-bezier-plane-follow/assets/32321/ac1f5287-35c0-4cb1-8da0-7b48325306bf
+
